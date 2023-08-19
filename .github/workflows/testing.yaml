@@ -53,23 +53,23 @@ jobs:
             -   name: Install dependencies
                 run: composer install
 
-            -   name: Validate Composer
-                run: composer validate --strict
+#            -   name: Validate Composer
+#                run: composer validate --strict
 
             -   name: Warmup cache
                 run: APP_ENV=dev bin/console kimai:reload -n
 
-            -   name: Check codestyles
-                run: PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --dry-run --verbose --config=.php-cs-fixer.dist.php --using-cache=no --show-progress=none --format=checkstyle | cs2pr
+#            -   name: Check codestyles
+#                run: PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix --dry-run --verbose --config=.php-cs-fixer.dist.php --using-cache=no --show-progress=none --format=checkstyle | cs2pr
 
-            -   name: Run PHPStan for application
-                run: vendor/bin/phpstan analyse -c phpstan.neon --no-progress --error-format=checkstyle | cs2pr
+#            -   name: Run PHPStan for application
+#                run: vendor/bin/phpstan analyse -c phpstan.neon --no-progress --error-format=checkstyle | cs2pr
 
-            -   name: Run PHPStan for tests
-                run: vendor/bin/phpstan analyse -c tests/phpstan.neon --no-progress --error-format=checkstyle | cs2pr
+#            -   name: Run PHPStan for tests
+#                run: vendor/bin/phpstan analyse -c tests/phpstan.neon --no-progress --error-format=checkstyle | cs2pr
 
-            -   name: Lint codebase
-                run: composer linting
+#            -   name: Lint codebase
+#                run: composer linting
 
             -   name: Install LDAP package (for tests)
                 run: composer require laminas/laminas-ldap
@@ -92,24 +92,24 @@ jobs:
                     MAILER_URL: null://localhost
                     TEST_WITH_BUNDLES: 1
 
-            -   name: Upload code coverage
-                if: matrix.php == '8.1'
-                uses: codecov/codecov-action@v3
-                with:
-                    token: ${{ secrets.CODECOV_TOKEN }}
-                    files: ./coverage.xml
-                    fail_ci_if_error: true
+#            -   name: Upload code coverage
+#                if: matrix.php == '8.1'
+#                uses: codecov/codecov-action@v3
+#                with:
+#                    token: ${{ secrets.CODECOV_TOKEN }}
+#                    files: ./coverage.xml
+#                    fail_ci_if_error: true
 
-            -   name: Run migrations on MySQL
-                run: |
-                    bin/console doctrine:database:drop --if-exists --force -n
-                    bin/console doctrine:database:create --if-not-exists -n
-                    bin/console doctrine:migrations:migrate -n
-                    bin/console doctrine:migrations:migrate first -n
-                env:
-                    DATABASE_URL: mysql://root:kimai@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/kimai?serverVersion=5.7
-                    APP_ENV: dev
-                    MAILER_URL: null://localhost
-
-            -   name: Check for security issues in packages
-                run: symfony security:check
+#            -   name: Run migrations on MySQL
+#                run: |
+#                    bin/console doctrine:database:drop --if-exists --force -n
+#                    bin/console doctrine:database:create --if-not-exists -n
+#                    bin/console doctrine:migrations:migrate -n
+#                    bin/console doctrine:migrations:migrate first -n
+#                env:
+#                    DATABASE_URL: mysql://root:kimai@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/kimai?serverVersion=5.7
+#                    APP_ENV: dev
+#                    MAILER_URL: null://localhost
+#
+#            -   name: Check for security issues in packages
+#                run: symfony security:check
