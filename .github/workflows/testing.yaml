@@ -3,7 +3,7 @@ on:
     pull_request: null
     push:
         branches:
-            - main
+            - xdebug2
 jobs:
     integration:
         runs-on: ubuntu-latest
