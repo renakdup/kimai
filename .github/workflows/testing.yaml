@@ -1,9 +1,8 @@
 name: Tests
+
 on:
-    pull_request: null
-    push:
-        branches:
-            - main
+    workflow_dispatch:
+
 jobs:
     integration:
         runs-on: ubuntu-latest
