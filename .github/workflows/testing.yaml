@@ -35,6 +35,7 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     extensions: ctype, gd, iconv, intl, ldap, mbstring, mysql, xml, zip
+                    coverage: pcov
                     tools: cs2pr, symfony-cli
                 env:
                     fail-fast: true
@@ -90,7 +91,7 @@ jobs:
 #                    MAILER_URL: null://localhost
 
             -   name: Full test-suite with coverage
-                run: vendor/bin/phpunit tests/ --coverage-clover=coverage.xml
+                run: vendor/bin/phpunit tests/
                 env:
                     DATABASE_URL: mysql://root:kimai@127.0.0.1:${{ job.services.mysql.ports['3306'] }}/kimai?serverVersion=5.7
                     APP_ENV: dev
