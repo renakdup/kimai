@@ -34,11 +34,16 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
-                    coverage: pcov
                     extensions: ctype, gd, iconv, intl, ldap, mbstring, mysql, xml, zip
                     tools: cs2pr, symfony-cli
                 env:
                     fail-fast: true
+
+            -   name: INFO
+                run: |
+                    php --version
+                    php -m
+                    
 
             -   name: Determine composer cache directory
                 id: composer-cache
