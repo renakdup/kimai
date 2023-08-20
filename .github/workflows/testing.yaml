@@ -35,7 +35,7 @@ jobs:
                 with:
                     php-version: ${{ matrix.php }}
                     extensions: ctype, gd, iconv, intl, ldap, mbstring, mysql, xml, zip
-                    coverage: pcov
+                    coverage: xdebug
                     tools: cs2pr, symfony-cli
                 env:
                     fail-fast: true
