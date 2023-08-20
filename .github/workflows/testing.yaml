@@ -3,7 +3,7 @@ on:
     pull_request: null
     push:
         branches:
-            - main
+            - pcov
 jobs:
     integration:
         runs-on: ubuntu-latest
